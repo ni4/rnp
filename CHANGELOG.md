@@ -1,5 +1,30 @@
 ## Changelog
 
+### 0.13.0 [04-13-2019]
+#### General
+
+* Fixed a double-free on invalid armor headers.
+* Fixed broken versioning when used as a git submodule.
+* Fixed an infinite loop on parsing truncated armored keys.
+* Fixed armored stream parsing to be more flexible and allow blank lines before trailer.
+* Fixed the armor header for detached signatures (previously MESSAGE, now SIGNATURE).
+
+#### CLI
+
+* rnpkeys: Removed a few redundant commands (--get-key, --print-sigs, --trusted-keys, ...).
+* rnpkeys: Added --secret option.
+
+#### FFI
+
+* Added support to retrieve the commit timestamp (for non-release builds).
+* Added a new (non-JSON) key generation API.
+* Added a function to unload keys.
+* Expanded bit length support for JSON key generation.
+
+#### Packaging
+
+* RPM: Split packages into librnp0, librnp0-devel, and rnp0.
+
 ### 0.12.0 [01-13-2019]
 #### General
 
