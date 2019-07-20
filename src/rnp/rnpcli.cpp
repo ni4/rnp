@@ -295,6 +295,8 @@ rnp_load_keyrings(rnp_t *rnp, bool loadsecret)
         }
     }
 
+    RNP_LOG("defkey: %s", rnp->defkey);
+
     return true;
 }
 

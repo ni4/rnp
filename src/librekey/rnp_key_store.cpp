@@ -117,7 +117,7 @@ rnp_key_store_load_from_path(rnp_key_store_t *         key_store,
             }
 
             snprintf(path, sizeof(path), "%s/%s", key_store->path, ent->d_name);
-            RNP_DLOG("Loading G10 key from file '%s'", path);
+            RNP_LOG("Loading G10 key from file '%s'", path);
 
             if (init_file_src(&src, path)) {
                 RNP_LOG("failed to read file %s", path);

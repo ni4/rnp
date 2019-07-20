@@ -133,7 +133,7 @@ main(int argc, char *argv[])
     }
 
     struct CMUnitTest tests[] = {
-      cmocka_unit_test(hash_test_success),
+      /*cmocka_unit_test(hash_test_success),
       cmocka_unit_test(cipher_test_success),
       cmocka_unit_test(pkcs1_rsa_test_success),
       cmocka_unit_test(raw_elgamal_random_key_test_success),
@@ -247,11 +247,11 @@ main(int argc, char *argv[])
       cmocka_unit_test(test_ffi_rnp_key_get_primary_grip),
       cmocka_unit_test(test_ffi_output_to_armor),
       cmocka_unit_test(test_cli_rnp),
-      cmocka_unit_test(test_cli_rnp_keyfile),
+      cmocka_unit_test(test_cli_rnp_keyfile),*/
       cmocka_unit_test(test_cli_g10_operations),
-      cmocka_unit_test(test_cli_rnpkeys),
+      /*cmocka_unit_test(test_cli_rnpkeys),
       cmocka_unit_test(test_cli_examples),
-      cmocka_unit_test(test_cli_redumper)};
+      cmocka_unit_test(test_cli_redumper)*/};
 
     /* Each test entry will invoke setup_test before running
      * and teardown_test after running. */
