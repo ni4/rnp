@@ -222,6 +222,13 @@ remove_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ft
     return ret;
 }
 
+static const char *
+get_tmp()
+{
+    const char *tmp = getenv("TEMP");
+    return tmp ? tmp : "/tmp";
+}
+
 /* Recursively remove a directory.
  * The path must be located in /tmp, for safety.
  */
@@ -235,7 +242,8 @@ delete_recursively(const char *path)
         free(cwd);
     }
     /* sanity check, we should only be purging things from /tmp/ */
-    assert_true(!strncmp(fullpath, "/tmp/", 5) || !strncmp(fullpath, "/private/tmp/", 13));
+    const char *tmp = get_tmp();
+    assert_true(!strncmp(fullpath, tmp, strlen(tmp)));
 
     nftw(path, remove_cb, 64, FTW_DEPTH | FTW_PHYS);
     if (*path != '/') {
@@ -247,12 +255,17 @@ void
 copy_recursively(const char *src, const char *dst)
 {
     /* sanity check, we should only be copying things to /tmp/ */
-    assert_int_equal(strncmp(dst, "/tmp/", 5), 0);
-    assert_true(strlen(dst) > 5);
+    const char *tmp = get_tmp();
+    assert_int_equal(strncmp(dst, tmp, strlen(tmp)), 0);
+    assert_true(strlen(dst) > strlen(tmp));
 
     // TODO: maybe use fts or something less hacky
     char buf[2048];
+    #ifndef _WIN32
     snprintf(buf, sizeof(buf), "/bin/cp -a '%s' '%s'", src, dst);
+    #else
+    snprintf(buf, sizeof(buf), "xcopy \"%s\" \"%s\" /Q /E /Y", src, dst);
+    #endif
     assert_int_equal(0, system(buf));
 }
 
@@ -262,13 +275,19 @@ copy_recursively(const char *src, const char *dst)
 char *
 make_temp_dir()
 {
-    const char *tmplate = "/tmp/rnp-gtest-XXXXXX";
-    char *      buffer = (char *) calloc(1, strlen(tmplate) + 1);
+    const char *tmp = get_tmp();
+    const char *tmplate = "/rnp-gtest-XXXXXX";
+    char *      buffer = (char *) calloc(1, strlen(tmp) + strlen(tmplate) + 1);
     if (buffer == NULL) {
         return NULL;
     }
-    strncpy(buffer, tmplate, strlen(tmplate));
-    return mkdtemp(buffer);
+    strncpy(buffer, tmp, strlen(tmp));
+    strncpy(buffer + strlen(tmp), tmplate, strlen(tmplate));
+    char *res = mkdtemp(buffer);
+    if (!res) {
+        free(buffer);
+    }
+    return res;
 }
 
 static char *
