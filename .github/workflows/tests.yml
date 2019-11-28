@@ -58,10 +58,10 @@ jobs:
     timeout-minutes: 50
     steps:
       - uses: actions/checkout@v1
-      - name: Install MSYS2 modules
-        uses: MSP-Greg/msys2-action@master
-        with:
-          base: update
+      #- name: Install MSYS2 modules
+      #  uses: MSP-Greg/msys2-action@master
+      #  with:
+      #    base: update
       - name: tests
         run: bash.exe ./ci/run.sh
         env:

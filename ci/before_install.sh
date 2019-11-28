@@ -61,6 +61,11 @@ linux_install() {
 }
 
 win_install() {
+  bash.exe -c "pacman-key --init"
+  bash.exe -c "pacman-key --populate msys2"
+  bash.exe -c "pacman-key --populate mingw64"
+  pacman.exe -Syu
+
   packages="
     tar
     zlib-devel
@@ -79,11 +84,11 @@ win_install() {
     mingw64/mingw-w64-x86_64-libbotan
     mingw64/mingw-w64-x86_64-python2
   "
-  pacman --noconfirm -S --needed ${packages}
+  pacman -S --noconfirm --noprogressbar --needed ${packages}
 
   # msys includes ruby 2.6.1 while we need lower version
-  wget http://repo.msys2.org/mingw/x86_64/mingw-w64-x86_64-ruby-2.5.3-1-any.pkg.tar.xz -O /tmp/ruby-2.5.3.pkg.tar.xz
-  pacman --noconfirm --needed -U /tmp/ruby-2.5.3.pkg.tar.xz
+  wget -q http://repo.msys2.org/mingw/x86_64/mingw-w64-x86_64-ruby-2.5.3-1-any.pkg.tar.xz -O /tmp/ruby-2.5.3.pkg.tar.xz
+  pacman --noconfirm --needed --noprogressbar -U /tmp/ruby-2.5.3.pkg.tar.xz
   rm /tmp/ruby-2.5.3.pkg.tar.xz
 }
 
