@@ -61,10 +61,19 @@ linux_install() {
 }
 
 win_install() {
+  echo $PATH
+  ruby.exe -e "STDOUT.write RbConfig::TOPDIR"
+  #bash.exe -c "ls -la C:/hostedtoolcache/windows/"
+  #bash.exe -c "ls -la C:/hostedtoolcache/windows/mingw64/"
+
+  #export PATH="C:/hostedtoolcache/windows/mingw64/bin:C:/hostedtoolcache/windows/mingw64/usr/bin:$PATH"
+
+  bash.exe -c "which pacman-key"
+
   bash.exe -c "pacman-key --init"
   bash.exe -c "pacman-key --populate msys2"
-  bash.exe -c "pacman-key --populate mingw64"
-  pacman.exe -Syu
+  pacman.exe -Syu --noconfirm --noprogressbar --needed
+  pacman.exe -Syu --noconfirm --noprogressbar --needed
 
   packages="
     tar

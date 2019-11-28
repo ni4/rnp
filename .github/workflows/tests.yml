@@ -62,6 +62,8 @@ jobs:
       #  uses: MSP-Greg/msys2-action@master
       #  with:
       #    base: update
+      - name: Add MSYS2 path
+        uses: MSP-Greg/msys2-action/add_paths@master
       - name: tests
         run: bash.exe ./ci/run.sh
         env:
