@@ -64,6 +64,14 @@ jobs:
       #    base: update
       - name: Add MSYS2 path
         uses: MSP-Greg/msys2-action/add_paths@master
+      - name: Update MSYS2
+        run: pacman-key --init
+      - name: Update pacman-key
+        run: pacman-key --update
+      - name: Upgrade pacman
+        run: pacman -Syu --noconfirm --noprogressbar --needed
+      - name: Finish MSYS2 update
+        run: pacman.exe -Syu --noconfirm --noprogressbar --needed
       - name: tests
         run: bash.exe ./ci/run.sh
         env:

@@ -62,7 +62,7 @@ linux_install() {
 
 win_install() {
   echo $PATH
-  ruby.exe -e "STDOUT.write RbConfig::TOPDIR"
+  #ruby.exe -e "STDOUT.write RbConfig::TOPDIR"
   #bash.exe -c "ls -la C:/hostedtoolcache/windows/"
   #bash.exe -c "ls -la C:/hostedtoolcache/windows/mingw64/"
 
