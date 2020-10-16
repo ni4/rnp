@@ -4897,11 +4897,7 @@ try {
         return RNP_ERROR_BAD_PARAMETERS;
     }
 
-    *op = (rnp_op_generate_t) calloc(1, sizeof(**op));
-    if (!*op) {
-        return RNP_ERROR_OUT_OF_MEMORY;
-    }
-
+    *op = new rnp_op_generate_st();
     (*op)->ffi = ffi;
     (*op)->primary = false;
     (*op)->crypto.key_alg = key_alg;
@@ -5257,8 +5253,6 @@ try {
         rnp_keygen_primary_desc_t keygen = {};
         keygen.crypto = op->crypto;
         keygen.cert = op->cert;
-        op->cert.prefs = {}; /* generate call will free prefs */
-
         if (!pgp_generate_primary_key(&keygen, true, &sec, &pub, op->ffi->secring->format)) {
             return RNP_ERROR_KEY_GENERATION;
         }

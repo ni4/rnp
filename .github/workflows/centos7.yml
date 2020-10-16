@@ -35,6 +35,7 @@ jobs:
           - BUILD_MODE: coverage
             GPG_VERSION: beta
             RNP_TESTS: rnp_tests
+      fail-fast: false
     env: ${{ matrix.env }}
     steps:
       - run: |

@@ -636,15 +636,15 @@ typedef struct pgp_revoke_t {
 
 typedef struct pgp_user_prefs_t {
     // preferred symmetric algs (pgp_symm_alg_t)
-    std::vector<uint8_t> symm_algs;
+    std::vector<uint8_t> symm_algs{};
     // preferred hash algs (pgp_hash_alg_t)
-    std::vector<uint8_t> hash_algs;
+    std::vector<uint8_t> hash_algs{};
     // preferred compression algs (pgp_compression_type_t)
-    std::vector<uint8_t> z_algs;
+    std::vector<uint8_t> z_algs{};
     // key server preferences (pgp_key_server_prefs_t)
-    std::vector<uint8_t> ks_prefs;
+    std::vector<uint8_t> ks_prefs{};
     // preferred key server
-    std::string key_server;
+    std::string key_server{};
 
     void set_symm_algs(const uint8_t algs[], size_t len);
     void add_symm_alg(pgp_symm_alg_t alg);
