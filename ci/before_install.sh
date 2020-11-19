@@ -8,6 +8,8 @@ macos_install() {
   # homebrew fails because `openssl` is a symlink while it tries to remove a directory.
   rm /usr/local/Cellar/openssl || true
   brew bundle
+  # somehow pinentry-curses fails to compile within latest macos GHA
+  brew install ncurses
 }
 
 freebsd_install() {

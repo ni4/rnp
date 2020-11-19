@@ -93,6 +93,9 @@ _install_gpg() {
       --configure-opts "$configure_opts"
   )
 
+  export CFLAGS="-D_XOPEN_SOURCE_EXTENDED"
+  export CXXFLAGS="-D_XOPEN_SOURCE_EXTENDED"
+
   for component in libgpg-error:$LIBGPG_ERROR_VERSION \
                    libgcrypt:$LIBGCRYPT_VERSION \
                    libassuan:$LIBASSUAN_VERSION \
