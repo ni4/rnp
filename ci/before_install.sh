@@ -29,7 +29,11 @@ freebsd_install() {
     python
     ruby25
 "
+  uname -a
+  pkg-static -v
+
   # Note: we assume sudo is already installed
+  sudo pkg-static upgrade pkg
   sudo pkg install -y ${packages}
 
   cd /usr/ports/devel/ruby-gems
