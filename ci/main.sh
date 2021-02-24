@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -eux
 
+gpgconf --show-versions
+
 . ci/utils.inc.sh
 
 : "${RNP_TESTS=${RNP_TESTS-.*}}"
