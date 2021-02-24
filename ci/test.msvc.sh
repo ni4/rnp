@@ -5,6 +5,8 @@ set -eux
 
 : "${CTEST_PARALLEL:=$CORES}"
 
+gpgconf --show-versions
+
 #  use test costs to prioritize
 mkdir -p "build/Testing/Temporary"
 cp "cmake/CTestCostData.txt" "build/Testing/Temporary"
