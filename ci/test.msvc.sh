@@ -10,8 +10,7 @@ mkdir -p "build/Testing/Temporary"
 cp "cmake/CTestCostData.txt" "build/Testing/Temporary"
 
 cd build
-ctest -j"${CTEST_PARALLEL}" -R rnp_tests -C Debug --output-on-failure
-ctest -R cli_tests -C Debug --output-on-failure
+ctest -j"${CTEST_PARALLEL}" -C Debug --output-on-failure
 cd ..
 
 exit 0
