@@ -84,7 +84,6 @@ jobs:
           set -eux
           pushd "${GITHUB_WORKSPACE}/release-sign"
           mkdir ~/.rnp
-          set +x
           if [[ -z $RELEASE_PUBLIC_KEY ]]; then
             printf "RELEASE_PUBLIC_KEY is not set!\n"
             exit 1
@@ -93,8 +92,9 @@ jobs:
             printf "RELEASE_SECRET_KEY is not set!\n"
             exit 1
           fi
-          <<<"${RELEASE_PUBLIC_KEY}" cat > release-pub.asc
-          <<<"${RELEASE_SECRET_KEY}" cat > release-sec.asc
+          <<< "${RELEASE_PUBLIC_KEY}" cat > release-pub.asc
+          <<< "${RELEASE_SECRET_KEY}" cat > release-sec.asc
+          ls -la
           set -x
           rnpkeys --import release-pub.asc
           ./rel-sign.sh -r ${{ github.repository }} -v ${RELEASE_VER} --src ${GITHUB_WORKSPACE}/rnp-release --pparams --keyfile release-sec.asc
